@@ -9,6 +9,14 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+router.post('/', (req, res, next) => {
+  const { message } = req.body
+  Message.create({
+    message
+  })
+  .then(message => res.send(message))
+  .catch(next)
+})
 
 
 module.exports = router
