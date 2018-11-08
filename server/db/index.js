@@ -64,7 +64,8 @@ const syncAndSeed = async () => {
     Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
     Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
     Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: scot.id}),
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mike.id})
+    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mike.id}),
+    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque'})
   ])
   return {
     messages: [m1,m2,m3,m4],
