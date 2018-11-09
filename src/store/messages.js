@@ -1,8 +1,10 @@
 import axios from 'axios'
+import socket from '../index'
 
 //action types
 const GET_MESSAGES = 'GET_MESSAGES'
 const POST_MESSAGE = 'POST_MESSAGE'
+
 //action creators
 export const _getMessages = messages => ({type: GET_MESSAGES, messages})
 export const _postMessage = message => ({type: POST_MESSAGE, message})
@@ -17,17 +19,19 @@ export const loadMessages = () => {
   }
 }
 
-export const postMessage = (message) => {
-  console.log(message)
-  return dispatch => {
-    return axios.post('/api/messages/', { message })
-    .then(response => response.data)
-    .then(message => dispatch(_postMessage(message)))
+export const postMessage = message => {
+  return async dispatch => {
+    try {
+      const response = await axios.post('/api/messages/', {message})
+      dispatch(_postMessage(response.data))
+      socket.emit('new-message', response.data)
+    } catch(err){
+      console.log(err)
+    }
   }
 }
 
-
-const messagesReducer = (state = [], action) =>{
+const messagesReducer = (state = [], action) => {
   switch(action.type){
     case POST_MESSAGE:
       return [...state, action.message]

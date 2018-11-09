@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(
   process.env.DATABASE_URL || 'postgres://localhost/messenger'
-);
+,{ logging: false });
 
 const User = conn.define('user', {
   firstName: {
