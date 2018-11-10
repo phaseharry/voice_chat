@@ -11,7 +11,6 @@ class Chat extends React.Component{
       <div>
         <ul>
           {messages.map(message => {
-            console.log(message)
             return <Message key={message._id} message={message.text} user={message.user}/>
           })}
         </ul>

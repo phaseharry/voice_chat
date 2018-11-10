@@ -14,7 +14,11 @@ export const loadMessages = () => {
   return dispatch => {
     return axios.get('/api/messages/')
     .then(response => response.data)
-    .then(messages => dispatch(_getMessages(messages)))
+    .then(messages => {
+      const sortedMessages = messages.sort((a,b) => +a.createdAt - +b.createdAt )
+      
+      dispatch(_getMessages(sortedMessages))
+    })
     .catch((err) => console.log(err))
   }
 }
