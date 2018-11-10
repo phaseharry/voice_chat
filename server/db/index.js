@@ -49,20 +49,17 @@ const syncAndSeed = async () => {
   await conn.sync({ force: true });
   const [jack, scot, mike] = await Promise.all([
     User.create({
-      firstName: 'Jack',
-      lastName: 'Smith',
+      name: 'Jack Smith',
       password: 'jack',
       email: 'jack@gmail.com',
     }),
     User.create({
-      firstName: 'Scotty',
-      lastName: 'McThunk',
+      name: 'Scotty Mcthunk',
       password: 'scot',
       email: 'scott@gmail.com',
     }),
     User.create({
-      firstName: 'Mikey',
-      lastName: 'McMike',
+      name: 'Mikey Smikey',
       password: 'mike',
       email: 'mike@gmail.com',
     }),
