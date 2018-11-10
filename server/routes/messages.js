@@ -17,7 +17,7 @@ router.post('/', (req, res, next) => {
   })
   .then(message => {
     if(message.userId){
-      Message.findById(message.id, {
+      Message.findById(message._id, {
         include: {
           model: User
         }
