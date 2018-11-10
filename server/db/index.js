@@ -4,6 +4,11 @@ const conn = new Sequelize(
 ,{ logging: false });
 
 const User = conn.define('user', {
+  _id: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    autoIncrement: true
+  },
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -22,6 +27,11 @@ const User = conn.define('user', {
 });
 
 const Message = conn.define('message', {
+  _id: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    autoIncrement: true
+  },
   text: {
     type: Sequelize.STRING,
   },
