@@ -10,9 +10,10 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  const { message } = req.body
+  const { message, userId  } = req.body
   Message.create({
-    text: message
+    text: message,
+    userId
   })
   .then(message => res.send(message))
   .catch(next)

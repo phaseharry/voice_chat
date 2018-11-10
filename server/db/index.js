@@ -47,7 +47,12 @@ User.hasMany(Message);
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
-  const [jack, scot, mike] = await Promise.all([
+  const [mack,jack, scot, mike] = await Promise.all([
+    User.create({
+      name: 'Mack Far',
+      password: 'jack',
+      email: 'jacsk@gmail.com',
+    }),
     User.create({
       name: 'Jack Smith',
       password: 'jack',
@@ -65,7 +70,7 @@ const syncAndSeed = async () => {
     }),
   ]);
   const [m1, m2, m3, m4] = await Promise.all([
-    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack._id}),
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mack._id}),
     Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack._id}),
     Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: scot._id}),
     Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mike._id}),
