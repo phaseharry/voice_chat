@@ -22,7 +22,7 @@ const User = conn.define('user', {
 });
 
 const Message = conn.define('message', {
-  message: {
+  text: {
     type: Sequelize.STRING,
   },
 });
@@ -61,11 +61,11 @@ const syncAndSeed = async () => {
     }),
   ]);
   const [m1, m2, m3, m4] = await Promise.all([
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: scot.id}),
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mike.id}),
-    Message.create({ message : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque'})
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: jack.id}),
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: scot.id}),
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque', userId: mike.id}),
+    Message.create({ text : 'imperdiet proin fermentum leo vel orci porta non pulvinar neque'})
   ])
   return {
     messages: [m1,m2,m3,m4],
