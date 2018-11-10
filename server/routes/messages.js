@@ -15,7 +15,11 @@ router.post('/', (req, res, next) => {
     text: message,
     userId
   })
-  .then(message => res.send(message))
+  .then(message => Message.findById(message.id, {
+    include: {
+      model: User
+    }
+  }))
   .catch(next)
 })
 
