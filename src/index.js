@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import io from 'socket.io-client'
+import { CssBaseline } from '@material-ui/core'
 
 import App from './components/App'
 import store from './store'
@@ -20,7 +21,10 @@ export default socket
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Fragment>
+      <CssBaseline />
+      <App />
+    </Fragment>
   </Provider>,
   document.getElementById('app')
 )

@@ -1,35 +1,89 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { AppBar, Typography, withStyles, Toolbar, Drawer } from '@material-ui/core'
 
 import { loadMessages } from '../store/messages'
+import { exchangeTokenForAuth } from '../store/auth'
 
 import Chat from './Chat'
 import LogIn from './LogIn'
+import SignUp from './SignUp'
+import Nav from './Nav'
 
 class App extends React.Component{
   componentDidMount(){
-    this.props.loadMessages()
+    this.props.init()
   }
   render(){
-    const {} = this.props
+    const { classes } = this.props
     return (
+      <div className={classes.root}>
         <BrowserRouter>
-          <div>
-            <Switch>
-              <Route path='/login' component={LogIn}></Route>
-              <Route path='/' component={Chat}></Route>
-            </Switch>
-          </div>
+          <Fragment>
+            <AppBar position='fixed' className={classes.appBar}>
+              <Toolbar>
+                <Typography variant='h6' color='inherit' noWrap>
+                  Open Chat
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Drawer 
+              className={classes.drawer} 
+              variant='permanent' 
+              anchor='left' 
+              classes={{paper : classes.drawerPaper}}
+            >
+              <div className={classes.toolbar}></div>
+              <Route component={Nav}/>
+            </Drawer>
+
+            <main className={classes.content}>
+              <Switch>
+                <Route path='/signup' component={SignUp}/>
+                <Route path='/login' component={LogIn}/>
+                <Route path='/' component={Chat}/>
+              </Switch>
+            </main>
+          </Fragment>
         </BrowserRouter>
+      </div>
     )
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadMessages: () => dispatch(loadMessages())
+    init: () => {
+      dispatch(loadMessages())
+      dispatch(exchangeTokenForAuth())
+    }
   }
 }
 
-export default connect(null, mapDispatchToProps)(App)
+const styles = theme => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  toolbar: theme.mixins.toolbar,
+  drawer: {
+    width: 240,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 240,
+  },
+  root: {
+    display: 'flex',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+    paddingTop: '100px'
+  }
+})
+
+export default withStyles(styles)(connect(null, mapDispatchToProps)(App))

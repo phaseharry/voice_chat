@@ -1,5 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { logIn } from '../store/auth'
 
 class LogIn extends React.Component{
   constructor(){
@@ -18,16 +21,18 @@ class LogIn extends React.Component{
   }
   handleSubmit(event){
     event.preventDefault()
-    console.log(this.state)
+    const { logIn, history} = this.props
+    return logIn(this.state, history)
   }
   render(){
     const { email, password } = this.state
     const { handleChange, handleSubmit } = this
+    if(this.props.auth._id) return <Redirect to='/' />
     return (
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor='email'>Email: </label>
-          <input name='email' onChange={handleChange} value={email}></input>
+          <input name='email' type='email' onChange={handleChange} value={email}></input>
           <label htmlFor='password'>Password: </label>
           <input name='password' type='password' onChange={handleChange} value={password}></input>
           <button type='submit'>Log In</button>
@@ -38,4 +43,16 @@ class LogIn extends React.Component{
   }
 }
 
-export default LogIn
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logIn: (credentials, history) => dispatch(logIn(credentials, history))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn)

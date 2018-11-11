@@ -15,8 +15,7 @@ export const loadMessages = () => {
     return axios.get('/api/messages/')
     .then(response => response.data)
     .then(messages => {
-      const sortedMessages = messages.sort((a,b) => +a.createdAt - +b.createdAt )
-      
+      const sortedMessages = messages.sort((a,b) => a._id - b._id)
       dispatch(_getMessages(sortedMessages))
     })
     .catch((err) => console.log(err))
@@ -24,9 +23,10 @@ export const loadMessages = () => {
 }
 
 export const postMessage = message => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     try {
-      const response = await axios.post('/api/messages/', {message})
+      const userId = getState().auth._id
+      const response = await axios.post('/api/messages/', {message, userId})
       dispatch(_postMessage(response.data))
       socket.emit('new-message', response.data)
     } catch(err){
