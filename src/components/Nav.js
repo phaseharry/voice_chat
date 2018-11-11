@@ -3,24 +3,33 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 
 import { Divider, Button, List, ListItem, ListItemText, Badge, withStyles } from '@material-ui/core'
+import { Navigation } from '@material-ui/icons'
+
 import {logOut} from '../store/auth'
 
 class Nav extends React.Component{
   render(){
-    const { auth, history, logOut } = this.props
+    const { auth, history, logOut, location, classes } = this.props
+    const path = location.pathname
+    console.log(classes)
+    console.log(path)
     return (
       <Fragment>
         <Divider/>
         <List>
-            <ListItem>
-              <Button component={Link} to='/'>Open Chat</Button>
+            <ListItem button>
+              <Button variant='contained' component={Link} to='/'>
+                <Navigation />
+                Open Chat
+              </Button>
             </ListItem>
           { auth._id? 
               <ListItem> 
-                <Button onClick={() => logOut(history)}>Log out</Button>
+                <Button onClick={() => logOut(history)} variant='contained' color='primary'>Log out</Button>
               </ListItem> : 
+              path === '/login'? null : 
               <ListItem>
-                <Button component={Link} to='/login'>Log In</Button>
+                <Button component={Link} to='/login' variant='contained' color='secondary'>Log In</Button>
               </ListItem>
           }
         </List>
@@ -28,7 +37,6 @@ class Nav extends React.Component{
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {  
@@ -42,15 +50,17 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-
 const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
   badge: {
     top: 1,
     right: -15,
     // The border color match the background color.
     border: `2px solid ${
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[900]
-    }`,
+    }`
   },
 });
 
