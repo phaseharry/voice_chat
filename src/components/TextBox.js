@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core'
+
 import { postMessage } from '../store/messages'
 
 class TextBox extends React.Component{
@@ -25,11 +27,13 @@ class TextBox extends React.Component{
   }
   render(){
     const { message } = this.state
+    const { classes } = this.props
     const { handleSubmit, handleChange } = this
+
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.container}>
         <label htmlFor='message'></label>
-        <input name='message' value={message} onChange={handleChange}></input>
+        <input className={classes.input} name='message' value={message} onChange={handleChange} />
         <button type='submit'>Send</button>
       </form>
     )
@@ -42,4 +46,14 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(TextBox)
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  input: {
+    margin: theme.spacing.unit,
+  },
+});
+
+export default withStyles(styles)(connect(null, mapDispatchToProps)(TextBox))

@@ -11,18 +11,16 @@ class Nav extends React.Component{
   render(){
     const { auth, history, logOut, location, classes } = this.props
     const path = location.pathname
-    console.log(classes)
-    console.log(path)
     return (
       <Fragment>
         <Divider/>
         <List>
-            <ListItem button>
+            {path === '/'? null : <ListItem button>
               <Button variant='contained' component={Link} to='/'>
                 <Navigation />
                 Open Chat
               </Button>
-            </ListItem>
+            </ListItem>}
           { auth._id? 
               <ListItem> 
                 <Button onClick={() => logOut(history)} variant='contained' color='primary'>Log out</Button>
