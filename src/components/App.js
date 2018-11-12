@@ -10,6 +10,7 @@ import Chat from './Chat'
 import LogIn from './LogIn'
 import SignUp from './SignUp'
 import Nav from './Nav'
+import VideoChat from './VideoChat'
 
 class App extends React.Component{
   componentDidMount(){
@@ -44,6 +45,14 @@ class App extends React.Component{
                 <Route path='/login' component={LogIn}/>
                 <Route path='/' component={Chat}/>
               </Switch>
+              <Drawer 
+                className={classes.drawer} 
+                variant='permanent' 
+                anchor='right' 
+                classes={{paper : classes.drawerPaper}}
+              >
+              <Route path='/' component={VideoChat} />
+              </Drawer>
             </main>
           </Fragment>
         </BrowserRouter>

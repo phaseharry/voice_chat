@@ -7,12 +7,13 @@ import { getInitials } from '../store/utility'
 const Message = props => {
   const { message, user, classes, userId } = props
   if(user && user._id === userId? true : false){
+    // console.log(classes)
     return (
       <ListItem>
-        <ListItemText primary={message} className={classes.myMessages}/>
-        {/* <ListItemAvatar>   */}
+        <ListItemAvatar className={classes.myUser}>  
           <Avatar>{user? getInitials(user.name) : 'AN'}</Avatar>
-        {/* </ListItemAvatar> */}
+        </ListItemAvatar>
+        <ListItemText primary={message}/>
       </ListItem>
     )
   }
@@ -26,17 +27,14 @@ const Message = props => {
   )
 }
 
-const styles = theme => ({
-  message: {
-    maxWidth: 500
-  },
-  userMessages: {
-    paddingLeft: 200
-  },
-  myMessages: {
-    paddingLeft: 200
-  },
-});
+const styles = theme => {
+  // console.log(theme)
+ return {
+    myMessages: {
+      paddingLeft: 500
+    },
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -44,4 +42,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Message))
+export default connect(mapStateToProps)(withStyles(styles)(Message))
