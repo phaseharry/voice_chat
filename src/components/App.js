@@ -46,10 +46,10 @@ class App extends React.Component{
                 <Route path='/' component={Chat}/>
               </Switch>
               <Drawer 
-                className={classes.drawer} 
+                className={classes.drawerRight} 
                 variant='permanent' 
                 anchor='right' 
-                classes={{paper : classes.drawerPaper}}
+                classes={{paper : classes.drawerPaperRight}}
               >
               <Route path='/' component={VideoChat} />
               </Drawer>
@@ -82,15 +82,22 @@ const styles = theme => ({
     width: 240,
     flexShrink: 0,
   },
+  drawerRight: {
+    width: 240,
+    flexShrink: 0,
+  },
   drawerPaper: {
     width: 240,
+  },
+  drawerPaperRight:{
+    width: 400
   },
   root: {
     display: 'flex',
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    // padding: theme.spacing.unit * 3,
     paddingTop: '100px'
   }
 })
