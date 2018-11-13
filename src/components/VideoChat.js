@@ -13,7 +13,7 @@ class VideoChat extends React.Component{
     console.log('mounted')
     return (
       <div>
-        <video id='vidChat' autoPlay playsInline></video>
+        <video id='vidChat' autoPlay playsInline height='200' width='200'></video>
         <button onClick={init}>Open Video</button>
       </div>
     )
