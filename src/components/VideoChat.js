@@ -1,20 +1,26 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core'
 import init from '../stream'
 
 class VideoChat extends React.Component{
   constructor(){
     super()
     this.state = {
-      numberOfUsers: 0
+      open: false
     }
   }
   render(){
-    console.log('mounted')
+    const { open } = this.state
     return (
       <div>
+        <div style={
+          {paddingBottom: 100}
+        }></div>
         <video id='vidChat' autoPlay playsInline height='200' width='200'></video>
-        <button onClick={init}>Open Video</button>
+        <video id='vidChat2' autoPlay playsInline height='200' width='200'></video>
+        {!open? <button onClick={(e) => {
+          this.setState({open: true})
+          init(e)
+        }}>Open Video</button> : null}
       </div>
     )
   }
